@@ -3,6 +3,16 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAIL,
+  USER_DETAILS_RESET,
 } from "../constants/userConstants";
 export const userLoginReducer = (state = {}, action) => {
   const { payload, type } = action;
@@ -23,6 +33,78 @@ export const userLoginReducer = (state = {}, action) => {
       };
     case USER_LOGOUT:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const userRegisterReducer = (state = {}, action) => {
+  const { payload, type } = action;
+  switch (type) {
+    case USER_REGISTER_REQUEST:
+      return {
+        loading: true,
+      };
+    case USER_REGISTER_SUCCESS:
+      return {
+        userInfo: payload,
+        loading: false,
+      };
+    case USER_REGISTER_FAIL:
+      return {
+        error: payload,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const userDetailsReducer = (state = { user: {} }, action) => {
+  const { payload, type } = action;
+  switch (type) {
+    case USER_DETAILS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case USER_DETAILS_SUCCESS:
+      return {
+        user: payload,
+        loading: false,
+      };
+    case USER_DETAILS_FAIL:
+      return {
+        error: payload,
+        loading: false,
+      };
+    case USER_DETAILS_RESET:
+      return {
+        user: {},
+      };
+    default:
+      return state;
+  }
+};
+
+export const userUpdateProfileReducer = (state = {}, action) => {
+  const { payload, type } = action;
+  switch (type) {
+    case USER_UPDATE_REQUEST:
+      return {
+        loading: true,
+      };
+    case USER_UPDATE_SUCCESS:
+      return {
+        userInfo: payload,
+        success: true,
+        loading: false,
+      };
+    case USER_UPDATE_FAIL:
+      return {
+        error: payload,
+        loading: false,
+      };
     default:
       return state;
   }
