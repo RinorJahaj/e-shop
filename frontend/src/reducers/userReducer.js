@@ -13,6 +13,17 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_DETAILS_RESET,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAIL,
+  USER_LIST_RESET,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_REQUEST,
+  USER_DELETE_FAIL,
+  USER_UPDATE_USER_REQUEST,
+  USER_UPDATE_USER_SUCCESS,
+  USER_UPDATE_USER_FAIL,
+  USER_UPDATE_USER_RESET,
 } from "../constants/userConstants";
 export const userLoginReducer = (state = {}, action) => {
   const { payload, type } = action;
@@ -104,6 +115,80 @@ export const userUpdateProfileReducer = (state = {}, action) => {
       return {
         error: payload,
         loading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const userListReducer = (state = { users: [] }, action) => {
+  const { payload, type } = action;
+  switch (type) {
+    case USER_LIST_REQUEST:
+      return {
+        loading: true,
+      };
+    case USER_LIST_SUCCESS:
+      return {
+        users: payload,
+        loading: false,
+      };
+    case USER_LIST_FAIL:
+      return {
+        error: payload,
+        loading: false,
+      };
+    case USER_LIST_RESET:
+      return {
+        users: [],
+      };
+    default:
+      return state;
+  }
+};
+
+export const userDeleteReducer = (state = {}, action) => {
+  const { payload, type } = action;
+  switch (type) {
+    case USER_DELETE_REQUEST:
+      return {
+        loading: true,
+      };
+    case USER_DELETE_SUCCESS:
+      return {
+        success: true,
+        loading: false,
+      };
+    case USER_DELETE_FAIL:
+      return {
+        error: payload,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const userUpdateReducer = (state = { user: {} }, action) => {
+  const { payload, type } = action;
+  switch (type) {
+    case USER_UPDATE_USER_REQUEST:
+      return {
+        loading: true,
+      };
+    case USER_UPDATE_USER_SUCCESS:
+      return {
+        success: true,
+        loading: false,
+      };
+    case USER_UPDATE_USER_FAIL:
+      return {
+        error: payload,
+        loading: false,
+      };
+    case USER_UPDATE_USER_RESET:
+      return {
+        user: {},
       };
     default:
       return state;
